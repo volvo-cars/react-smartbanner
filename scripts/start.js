@@ -28,7 +28,9 @@ if (!checkRequiredFiles([paths.appHtml, paths.appExampleJs])) {
 
 // Tools like Cloud9 rely on this.
 const DEFAULT_PORT = process.env.PORT || 3000;
+
 let compiler;
+
 let handleCompile;
 
 // You can safely remove this after ejecting.

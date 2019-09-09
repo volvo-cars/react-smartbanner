@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import '../styles/style.scss';
 
 const isClient = typeof window !== 'undefined';
+
 let ua;
+
 let cookie;
 
 const expiredDateInUTC = additionalDays => {
@@ -92,7 +94,7 @@ class SmartBanner extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setType(this.props.force);
   }
 
@@ -206,13 +208,16 @@ class SmartBanner extends Component {
       },
     };
 
-    this.setState(prevState => ({
-      settings: mixins[prevState.type],
-    }), () => {
-      if (this.state.type) {
-        this.parseAppId();
+    this.setState(
+      prevState => ({
+        settings: mixins[prevState.type],
+      }),
+      () => {
+        if (this.state.type) {
+          this.parseAppId();
+        }
       }
-    });
+    );
   }
 
   hide = () => {
@@ -291,6 +296,7 @@ class SmartBanner extends Component {
       ${this.props.price[this.state.type]} - ${
   this.props.storeText[this.state.type]
 }`;
+
     let icon;
 
     if (isClient) {
@@ -339,9 +345,7 @@ class SmartBanner extends Component {
     this.show();
 
     const { icon, link, inStore } = this.retrieveInfo();
-    const wrapperClassName = `smartbanner smartbanner-${
-      this.state.type
-    } smartbanner-${this.props.position}`;
+    const wrapperClassName = `smartbanner smartbanner-${this.state.type} smartbanner-${this.props.position}`;
     const iconStyle = {
       backgroundImage: `url(${icon})`,
     };
@@ -349,7 +353,12 @@ class SmartBanner extends Component {
     return (
       <div className={wrapperClassName}>
         <div className="smartbanner-container">
-          <button type="button" className="smartbanner-close" aria-label="close" onClick={this.close}>
+          <button
+            type="button"
+            className="smartbanner-close"
+            aria-label="close"
+            onClick={this.close}
+          >
             &times;
           </button>
           <span className="smartbanner-icon" style={iconStyle} />
